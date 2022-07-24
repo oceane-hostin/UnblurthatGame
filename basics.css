@@ -8,7 +8,8 @@ h1 {
     text-shadow: 0 0 5px rgba(37, 204, 247, 0.7); }
 
 body {
-  background-color: #171f26; }
+  background-color: #171f26;
+  color: #FFF; }
 
 .rules {
   color: #FFF;
@@ -26,7 +27,7 @@ body {
   padding: 20px;
   text-align: center; }
   .game-form-container #pixelatedImage {
-    width: 500px;
+    max-width: 500px;
     max-height: 500px;
     object-fit: contain;
     margin: 0 auto 20px auto; }

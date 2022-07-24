@@ -56,18 +56,12 @@ document.addEventListener("DOMContentLoaded", function(event) {
             if (proposal == solution) {
                 gameEnded = true;
                 gameWon = true;
-                let timeUsed = parseInt(beginPixelForce / decreasePixel) - timeLeft;
-                updateCounter("Félicitation, trouvé en "
-                    + timeUsed + " secondes"
-                    + " et en " + numberOfTry + "essai(s)"
-                );
-                document.body.removeChild(actions);
+                endOfGame();
             } else {
                 guessInput.value = "";
                 if (numberOfTry >= maxNumberTry) {
                     gameEnded = true;
-                    updateCounter("Vous n'avez pas trouvé dans le nombre d'essais autorisé.");
-                    document.body.removeChild(actions);
+                    endOfGame();
                 }
             }
         }
@@ -91,12 +85,31 @@ document.addEventListener("DOMContentLoaded", function(event) {
                     pixelateImage(originalImage, parseInt(pixelForce));
                 } else {
                     gameEnded = true;
-                    updateCounter("Temps écoulé !");
-                    document.body.removeChild(actions);
+                    endOfGame();
                     clearIntervam = clearInterval(gameProcess);
                 }
             }
         }, 1000);
+    }
+
+    function endOfGame(phrase = undefined) {
+        actions.parentElement.removeChild(actions);
+        if (gameWon) {
+            let timeUsed = parseInt(beginPixelForce / decreasePixel) - timeLeft;
+            updateCounter("Félicitation, trouvé en "
+                + timeUsed + " secondes"
+                + " et en " + numberOfTry + "essai(s)"
+            );
+        } else {
+            let solutionText = document. createElement("p");
+            solutionText.textContent = "La solution attendue était : " + solution;
+            document.querySelector(".game-form-container").appendChild(solutionText);
+            if (numberOfTry >= maxNumberTry) {
+                updateCounter("Vous n'avez pas trouvé dans le nombre d'essais autorisé.");
+            } else {
+                updateCounter("Temps écoulé !");
+            }
+        }
     }
 
     function pixelateImage(originalImage, pixelationFactor) {
