@@ -2,9 +2,17 @@ document.addEventListener("DOMContentLoaded", function(event) {
     // initialize
     const pixelatedImage = document.querySelector("#pixelatedImage");
     const button = document.querySelector("#launchGame");
+    const buttonPause = document.querySelector("#pauseGame");
+    const guessForm = document.querySelector(".game-form-container .actions-container");
+    const rules = document.querySelector(".rules");
+    const counter = document.querySelector(".counter");
+
     const beginPixelForce = 50;
     const decreasePixel = 5;
+    let timeLeft = parseInt(beginPixelForce/decreasePixel);
     let gameLaunched = false;
+    let gamePaused = false;
+    let gameEnded = false;
     let pixelForce = beginPixelForce;
     const originalImage = pixelatedImage.cloneNode(true);
 
@@ -12,19 +20,32 @@ document.addEventListener("DOMContentLoaded", function(event) {
     button.addEventListener("click", async (e) => {
         if (!gameLaunched) {
             gameLaunched = true;
-            button.style.display = "none";
+            updateCounter();
             launchGame();
+            pixelateImage(originalImage, parseInt(beginPixelForce));
+            button.style.display = "none";
+            rules.style.display = "none";
+            pixelatedImage.style.display = "block";
+            guessForm.querySelector("input").style.display = "inline-block";
+            buttonPause.style.display = "inline-block";
         }
     });
 
+    function updateCounter() {
+        counter.innerHTML = timeLeft;
+    }
 
     function launchGame() {
 
         let gameProcess = setInterval(() => {
             if (pixelForce > 0) {
                 pixelForce -= decreasePixel;
+                timeLeft--;
+                updateCounter();
                 pixelateImage(originalImage, parseInt(pixelForce));
             } else {
+                gameEnded = true;
+                document.body.removeChild(guessForm);
                 clearIntervam = clearInterval(gameProcess);
             }
         }, 1000);

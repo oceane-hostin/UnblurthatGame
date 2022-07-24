@@ -2,10 +2,11 @@
 $color1 : #FFF;
 $color2 : #25CCF7;
 $color3 : #171f26;
+$font1 : 'Secular One', sans-serif;;
 
 
 h1 {
-	font-family: 'Secular One', sans-serif;
+	font-family: $font1;
 	text-align: center;
 	color: $color1;
 
@@ -19,12 +20,27 @@ body {
 	background-color: $color3;
 }
 
+.rules {
+	color: $color1;
+	width: 400px;
+	margin: 20px auto;
+	font-family: $font1;
+}
+
+.counter {
+	font-size: 3rem;
+	text-align: center;
+	color: $color1;
+}
+
 .game-form-container {
 	padding: 20px;
 	text-align: center;
 
 	#pixelatedImage {
 		width: 500px;
+		max-height: 500px;
+		object-fit: contain;
 		margin: 0 auto 20px auto;
 	}
 }
