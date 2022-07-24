@@ -1,0 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Secular+One&display=swap');
+$color1 : #FFF;
+$color2 : #25CCF7;
+$color3 : #171f26;
+
+
+h1 {
+	font-family: 'Secular One', sans-serif;
+	text-align: center;
+	color: $color1;
+
+	span {
+		color: transparent;
+		text-shadow: 0 0 5px rgba($color2, 0.7);
+	}
+}
+
+body {
+	background-color: $color3;
+}
+
+.game-form-container {
+	padding: 20px;
+	text-align: center;
+
+	#pixelatedImage {
+		width: 500px;
+		margin: 0 auto 20px auto;
+	}
+}
+
+footer {
+	position: fixed;
+	bottom: 0;
+	text-align: center;
+	width: 100vw;
+	padding-bottom: 5px;
+
+	a {
+		color: $color1;
+		text-decoration: none;
+		margin: 0 10px;
+		font-size: 0.7rem;
+	}
+}
