@@ -13,22 +13,28 @@
             <br>Vous perdez quand le temps est écoulé ou si vous avez tenter plus de 5 propositions.</p>
         <br>
         <p>Si vous vous sentez prêt.e à relever le défi, cliquez sur un bouton "Lancer le jeu !".</p>
+
+        <i>Attention : les solutions sont les titres en anglais</i>
     </div>
 	<div class="game-form-container">
         <span class="counter"></span>
 		<img id="pixelatedImage" src="<?= $this->getGameImage()?>"
              crossorigin="anonymous" style="display: none"/>
         <div class="actions-container">
-            <!-- todo check -->
-            <input type="text" name="guess" id="guess" placeholder="Your guess" style="display: none"/>
+            <div class="form-guess" style="display: none">
+                <input type="text" name="guess" id="guess" placeholder="Votre proposition"/>
+                <input type="hidden" value="<?= base64_encode($this->getGameName())?>"/>
+                <button id="validate">Valider</button>
+            </div>
             <button id="launchGame">Lancer le jeu !</button>
             <button id="pauseGame" style="display: none">Pause</button>
+            <!-- todo info sur le jeu ? -->
             <!-- todo share results-->
         </div>
 	</div>
 
     <footer>
-        <a href="https://www.boardgameatlas.com/">Data from Boardgameatlas</a>
+        <a href="https://www.boardgameatlas.com/">Données provenant de Boardgameatlas</a>
     </footer>
 
     <script src="src/pixel-image.js"></script>

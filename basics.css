@@ -19,7 +19,8 @@ body {
 .counter {
   font-size: 3rem;
   text-align: center;
-  color: #FFF; }
+  color: #FFF;
+  margin-bottom: 10px; }
 
 .game-form-container {
   padding: 20px;
