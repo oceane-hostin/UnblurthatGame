@@ -23,6 +23,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
     let maxNumberTry = 5;
     let numberOfTry = 0;
 
+    let infoText = document. createElement("p");
+    infoText.id = "info";
+    document.querySelector(".game-form-container").appendChild(infoText);
+
     // launch game on click
     launchButton.addEventListener("click", async (e) => {
         if (!gameLaunched) {
@@ -60,6 +64,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
                     endOfGame();
                 } else {
                     guessInput.value = "";
+                    infoText.textContent = "Ce n'est pas ça !";
                     if (numberOfTry >= maxNumberTry) {
                         gameEnded = true;
                         endOfGame();
@@ -103,9 +108,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
                 + " et en " + numberOfTry + "essai(s)"
             );
         } else {
-            let solutionText = document. createElement("p");
-            solutionText.textContent = "La solution attendue était : " + solution;
-            document.querySelector(".game-form-container").appendChild(solutionText);
+            infoText.textContent = "La solution attendue était : " + solution;
             if (numberOfTry >= maxNumberTry) {
                 updateCounter("Vous n'avez pas trouvé dans le nombre d'essais autorisé.");
             } else {
