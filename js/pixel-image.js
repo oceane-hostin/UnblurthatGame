@@ -50,18 +50,20 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
     // validate guess
     submitButton.addEventListener("click", async (e) => {
-        let proposal = guessInput.value;
-        numberOfTry++;
-        if (!gameEnded) {
-            if (proposal == solution) {
-                gameEnded = true;
-                gameWon = true;
-                endOfGame();
-            } else {
-                guessInput.value = "";
-                if (numberOfTry >= maxNumberTry) {
+        if (gameLaunched) {
+            let proposal = guessInput.value;
+            numberOfTry++;
+            if (!gameEnded) {
+                if (proposal == solution) {
                     gameEnded = true;
+                    gameWon = true;
                     endOfGame();
+                } else {
+                    guessInput.value = "";
+                    if (numberOfTry >= maxNumberTry) {
+                        gameEnded = true;
+                        endOfGame();
+                    }
                 }
             }
         }

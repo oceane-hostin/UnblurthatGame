@@ -2,7 +2,8 @@
 $color1 : #FFF;
 $color2 : #25CCF7;
 $color3 : #171f26;
-$font1 : 'Secular One', sans-serif;;
+$font1 : 'Secular One', sans-serif;
+$enable-negative-margins: true;
 
 
 h1 {
@@ -16,14 +17,9 @@ h1 {
 	}
 }
 
-body {
-	background-color: $color3;
-	color: $color1;
-}
-
 .rules {
 	color: $color1;
-	width: 400px;
+	width: 500px;
 	margin: 20px auto;
 	font-family: $font1;
 }
@@ -47,9 +43,15 @@ body {
 	}
 }
 
+.easy-autocomplete {
+	display: inline-block;
+
+	input {
+		margin-top: 10px;
+	}
+}
+
 footer {
-	position: fixed;
-	bottom: 0;
 	text-align: center;
 	width: 100vw;
 	padding-bottom: 5px;
