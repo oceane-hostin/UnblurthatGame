@@ -77,6 +77,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     function updateCounter(content = undefined) {
         if (content != undefined) {
             counter.innerHTML = content;
+            counter.className = "text-md";
         } else {
             counter.innerHTML = timeLeft;
         }

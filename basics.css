@@ -1,7 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Secular+One&display=swap");
 h1 {
   font-family: "Secular One", sans-serif;
-  text-align: center;
   color: #FFF; }
   h1 span {
     color: transparent;
@@ -13,18 +12,7 @@ h1 {
 
 .counter {
   font-size: 3rem;
-  text-align: center;
-  color: #FFF;
-  margin-bottom: 10px; }
-
-.game-form-container {
-  padding: 20px;
-  text-align: center; }
-  .game-form-container #pixelatedImage {
-    max-width: 500px;
-    max-height: 500px;
-    object-fit: contain;
-    margin: 0 auto 20px auto; }
+  color: #FFF; }
 
 .easy-autocomplete {
   display: inline-block; }
@@ -32,7 +20,6 @@ h1 {
     margin-top: 10px; }
 
 footer {
-  text-align: center;
   width: 100vw;
   padding-bottom: 5px; }
   footer a {

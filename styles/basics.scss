@@ -8,7 +8,6 @@ $enable-negative-margins: true;
 
 h1 {
 	font-family: $font1;
-	text-align: center;
 	color: $color1;
 
 	span {
@@ -24,21 +23,7 @@ h1 {
 
 .counter {
 	font-size: 3rem;
-	text-align: center;
 	color: $color1;
-	margin-bottom: 10px;
-}
-
-.game-form-container {
-	padding: 20px;
-	text-align: center;
-
-	#pixelatedImage {
-		max-width: 500px;
-		max-height: 500px;
-		object-fit: contain;
-		margin: 0 auto 20px auto;
-	}
 }
 
 .easy-autocomplete {
@@ -50,7 +35,6 @@ h1 {
 }
 
 footer {
-	text-align: center;
 	width: 100vw;
 	padding-bottom: 5px;
 
