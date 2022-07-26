@@ -9,6 +9,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
         listLocation: "games",
         getValue: "name",
         theme: "dark",
+        list: {
+            match: {
+                enabled: true
+            }
+        },
     };
 
     $("input#guess").easyAutocomplete(options);

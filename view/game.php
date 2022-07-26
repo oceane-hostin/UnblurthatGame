@@ -26,7 +26,7 @@
     <link rel="stylesheet" href="basics.css">
 </head>
 <body class="bg-slate-800 text-white px-10 md:px-15 pt-10 pb-5 min-h-screen box-border">
-    <h1 class="text-3xl text-center"><span>Unblur</span> That Game</h1>
+    <h1 class="text-xl md:text-3xl text-center"><span>Unblur</span> That Game</h1>
     <p class="text-center">(Bêta)</p>
     <div class="rules text-md leading-loose sm:w-100 md:w-4/6 mx-auto mt-5">
         <p>Dans ce jeu, vous devez retrouver la couverture d'un jeu de société le plus rapidement possible.</p>
@@ -52,6 +52,11 @@
             <button id="pauseGame" class="relative md:-top-0.5 inline-block px-6 py-2.5 bg-gray-400 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-gray-500 hover:shadow-lg focus:bg-gray-900 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-500 active:shadow-lg transition duration-150 ease-in-out" style="display: none">Pause</button>
             <!-- todo info sur le jeu ? -->
             <!-- todo share results-->
+            <!-- todo see complete image at end ?-->
+            <!-- todo image not pixel entierly-->
+            <!-- todo pixel smal at begin ex : the red dragon inn 2-->
+            <!-- todo sometimes no images-->
+            <!-- todo issue with accent ex: orléans -->
         </div>
 	</div>
 
