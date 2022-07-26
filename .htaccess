@@ -1,0 +1,9 @@
+Order Deny,Allow
+
+<Files configuration/*>
+    deny from all
+</Files>
+
+<Files *.json>
+    deny from all
+</Files>
