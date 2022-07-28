@@ -39,14 +39,18 @@
         <h1 class="text-xl md:text-3xl text-center"><span>Unblur</span> That Game</h1>
         <p class="text-center">(Bêta)</p>
         <div class="rules text-md leading-loose sm:w-100 md:w-4/6 mx-auto mt-5">
-            <p>Dans ce jeu, vous devez retrouver la couverture d'un jeu de société le plus rapidement possible.</p>
-            <p>Au début, l'image de la boîte apparaît toute pixélisée. Elle se clarifie au fil du temps.</p>
-            <p>Dès que vous pensez avoir trouvé, cliquez sur le bouton "Pause". Le temps s'arrête pendant que vous saisissez votre réponse.
-                <br>Vous perdez quand le temps est écoulé ou si vous avez fait plus de 5 propositions.</p>
-            <br>
-            <p>Si vous vous sentez prêt.e à relever le défi, cliquez sur un bouton "Lancer le jeu !".</p>
+            <?php if($daily) :?>
+                    <p>Dans ce jeu, vous devez retrouver la couverture d'un jeu de société le plus rapidement possible.</p>
+                    <p>Au début, l'image de la boîte apparaît toute pixélisée. Elle se clarifie au fil du temps.</p>
+                    <p>Dès que vous pensez avoir trouvé, cliquez sur le bouton "Pause". Le temps s'arrête pendant que vous saisissez votre réponse.
+                        <br>Vous perdez quand le temps est écoulé ou si vous avez fait plus de 5 propositions.</p>
+                    <br>
+                    <p>Si vous vous sentez prêt.e à relever le défi, cliquez sur un bouton "Lancer le jeu !".</p>
 
-            <i>Attention : les solutions sont les titres en anglais.</i>
+                    <i>Attention : les solutions sont les titres en anglais.</i>
+            <?php else: ?>
+                <p class="text-xl text-center mt-5">Mode Infini</p>
+            <?php endif ?>
         </div>
         <div class="game-form-container text-center p-5">
             <span class="counter text-center mb-5"></span>
