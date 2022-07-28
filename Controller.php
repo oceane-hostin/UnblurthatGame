@@ -8,11 +8,12 @@ class Controller {
 	const PARAM_RANDOM = "random";
 	const FIELD_IMAGE = "image_url";
 	const FIELD_NAME = "name";
+	const FIELD_ID = "id";
 	const FIELD_FIELDS = "fields";
 
 	const TABLE_HISTORY = "history";
 	const DB_NAME = "name";
-	const DB_GAME_iD = "game_id";
+	const DB_GAME_ID = "game_id";
 	const DB_IMAGE = "image";
 	const DB_DATE = "date";
 
@@ -40,7 +41,7 @@ class Controller {
 			self::PARAM_CLIENT_ID => self::CLIENT_ID,
 			self::PARAM_LIMIT => 1,
 			self::PARAM_RANDOM => "true",
-            self::FIELD_FIELDS => implode(",", [self::FIELD_NAME, self::FIELD_IMAGE])
+            self::FIELD_FIELDS => implode(",", [self::FIELD_NAME, self::FIELD_IMAGE, self::FIELD_ID])
 		];
 
 
@@ -109,6 +110,16 @@ class Controller {
         return $result->fetch_assoc();
 	}
 
+	protected function _insertDb($table, $data) {
+	    if (!empty($data) && is_array($data)) {
+	        $sql = "INSERT INTO " . $table
+                . " (`" . implode("`, `", array_keys($data)) . "`) "
+                . "VALUES ('" . implode("', '", array_values($data)) . "')";
+
+            $result = $this->connection->query($sql);
+        }
+    }
+
 	protected function getTodayGameIfExist() {
 	    $this->_todayGame = $this->_selectDb(
 	        [self::DB_NAME, self::DB_IMAGE],
@@ -125,7 +136,15 @@ class Controller {
         }
 
 	    if (empty($this->_todayGame)) {
-            $this->_callApi();
+            $game = $this->_callApi();
+            $this->_insertDb(self::TABLE_HISTORY,
+                [
+                    self::DB_NAME => $game[self::FIELD_NAME],
+                    self::DB_IMAGE => $game[self::FIELD_IMAGE],
+                    self::DB_GAME_ID => $game[self::FIELD_ID],
+                    self::DB_DATE => date("Y-m-d")
+                ]
+            );
         }
 
 		include "view/game.php";
