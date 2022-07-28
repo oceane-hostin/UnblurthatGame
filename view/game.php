@@ -25,9 +25,9 @@
 
     <link rel="stylesheet" href="basics.css">
 </head>
-<body class="bg-slate-800">
+<body class="bg-slate-800 <?php if(!$daily):?>infinite<?php endif?>">
     <!-- NAV -->
-    <?php include("nav.php"); ?>
+    <?php include("nav.php");?>
 
     <div class="text-white px-10 md:px-15 pt-10 pb-5 min-h-50 box-border">
         <h1 class="text-xl md:text-3xl text-center"><span>Unblur</span> That Game</h1>
@@ -49,7 +49,8 @@
             <div class="actions-container">
                 <div class="form-guess form-group mb-2">
                     <input type="text" name="guess" id="guess" placeholder="Votre proposition"/>
-                    <input type="hidden" value="<?= base64_encode($this->getGameName())?>"/>
+                    <input name="current" type="hidden" value="<?= base64_encode($this->getGameName())?>"/>
+                    <input name="currentId" type="hidden" value="<?= $this->getGuessId()?>"/>
                     <button id="validate" class="relative top-1 md:-top-0.5 inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">Valider</button>
                 </div>
                 <button id="launchGame" class="inline-block px-6 py-2.5 bg-gray-200 text-gray-700 font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-gray-300 hover:shadow-lg focus:bg-gray-300 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-400 active:shadow-lg transition duration-150 ease-in-out">Lancer le jeu !</button>
@@ -65,6 +66,7 @@
                 <!-- todo keeps stat -->
                 <!-- todo archive ?-->
             </div>
+            <button id="shareButton" class="inline-block px-6 py-2.5 bg-gray-200 text-gray-700 font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-gray-300 hover:shadow-lg focus:bg-gray-300 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-400 active:shadow-lg transition duration-150 ease-in-out" style="display: none">Partager</button>
         </div>
     </div>
 

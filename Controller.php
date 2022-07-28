@@ -12,6 +12,7 @@ class Controller {
 	const FIELD_FIELDS = "fields";
 
 	const TABLE_HISTORY = "history";
+	const DB_ID = "id";
 	const DB_NAME = "name";
 	const DB_GAME_ID = "game_id";
 	const DB_IMAGE = "image";
@@ -22,6 +23,7 @@ class Controller {
 
 	// todo be the same for everyone, reset at midnight
 	protected $_todayGame;
+	protected $_currentId;
 
 	public function __construct()
     {
@@ -117,15 +119,20 @@ class Controller {
                 . "VALUES ('" . implode("', '", array_values($data)) . "')";
 
             $result = $this->connection->query($sql);
+            if ($result) {
+                $this->_currentId = $this->connection->insert_id;
+            }
         }
     }
 
 	protected function getTodayGameIfExist() {
 	    $this->_todayGame = $this->_selectDb(
-	        [self::DB_NAME, self::DB_IMAGE],
+	        [self::DB_ID, self::DB_NAME, self::DB_IMAGE],
             self::TABLE_HISTORY,
             [self::DB_DATE => ["=" => date("Y-m-d")]]
         );
+
+        $this->_currentId = $this->_todayGame[self::DB_ID];
 
 	    return $this->_todayGame;
     }
@@ -137,14 +144,16 @@ class Controller {
 
 	    if (empty($this->_todayGame)) {
             $game = $this->_callApi();
-            $this->_insertDb(self::TABLE_HISTORY,
-                [
-                    self::DB_NAME => $game[self::FIELD_NAME],
-                    self::DB_IMAGE => $game[self::FIELD_IMAGE],
-                    self::DB_GAME_ID => $game[self::FIELD_ID],
-                    self::DB_DATE => date("Y-m-d")
-                ]
-            );
+            if ($daily) {
+                $this->_insertDb(self::TABLE_HISTORY,
+                    [
+                        self::DB_NAME => $game[self::FIELD_NAME],
+                        self::DB_IMAGE => $game[self::FIELD_IMAGE],
+                        self::DB_GAME_ID => $game[self::FIELD_ID],
+                        self::DB_DATE => date("Y-m-d")
+                    ]
+                );
+            }
         }
 
 		include "view/game.php";
@@ -160,5 +169,9 @@ class Controller {
         }
 
         return $this->_todayGame[self::DB_IMAGE];
+    }
+
+    public function getGuessId() {
+	    return $this->_currentId;
     }
 }

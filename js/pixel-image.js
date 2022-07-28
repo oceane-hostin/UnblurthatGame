@@ -4,17 +4,28 @@ document.addEventListener("DOMContentLoaded", function(event) {
     const launchButton = document.querySelector("#launchGame");
     const pauseButton = document.querySelector("#pauseGame");
     const submitButton = document.querySelector("#validate");
+    const shareButton = document.querySelector("#shareButton");
     const actions = document.querySelector(".game-form-container .actions-container");
     const guessForm = document.querySelector(".form-guess");
     const guessInput = guessForm.querySelector("input[type='text']");
-    const solution = atob(guessForm.querySelector("input[type='hidden']").value);
+    const solution = atob(guessForm.querySelector("input[name='current']").value);
+    const guessId = guessForm.querySelector("input[name='currentId']").value;
     const rules = document.querySelector(".rules");
     const counter = document.querySelector(".counter");
     const beginPixelForce = 60;
     const decreasePixel = 3;
     const originalImage = pixelatedImage.cloneNode(true);
+    const isInfiniteGame = document.body.classList.contains('infinite');
 
-    let timeLeft = parseInt(beginPixelForce/decreasePixel);
+    const timeEmoji = "⏱";
+    const winEmoji = "🥳";
+    const lostEmoji = "😭";
+    const greenSquare = "🟩";
+    const redSquare = "🟥"
+    const whiteSquare = "⬜";
+    const blackSquare = "⬛"
+
+    let totalTime = timeLeft = parseInt(beginPixelForce/decreasePixel);
     let gameLaunched = false;
     let gamePaused = false;
     let gameEnded = false;
@@ -22,6 +33,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
     let pixelForce = beginPixelForce;
     let maxNumberTry = 5;
     let numberOfTry = 0;
+    let tryAnswer = false;
+    let gameResults = "";
+    let gameSequence = "";
+    // interval
+    let gameProcess;
 
     let infoText = document. createElement("p");
     infoText.id = "info";
@@ -46,15 +62,24 @@ document.addEventListener("DOMContentLoaded", function(event) {
     pauseButton.addEventListener("click", async (e) => {
         gamePaused = !gamePaused;
         if (gamePaused) {
+            tryAnswer = false;
             pauseButton.textContent = "Reprendre";
         } else {
             pauseButton.textContent = "Pause";
+            if (!tryAnswer) {
+                gameSequence += blackSquare;
+                numberOfTry++;
+            }
+            if (numberOfTry >= maxNumberTry) {
+                endOfGame();
+            }
         }
     });
 
     // validate guess
     submitButton.addEventListener("click", async (e) => {
         if (gameLaunched) {
+            tryAnswer = true;
             let proposal = guessInput.value;
             numberOfTry++;
             if (!gameEnded) {
@@ -68,10 +93,20 @@ document.addEventListener("DOMContentLoaded", function(event) {
                     if (numberOfTry >= maxNumberTry) {
                         gameEnded = true;
                         endOfGame();
+                    } else {
+                        gameSequence += redSquare;
                     }
                 }
             }
         }
+    });
+
+    shareButton.addEventListener("click", async (e) => {
+        navigator.clipboard.writeText(gameResults).then(function() {
+            shareButton.textContent = "Copié !";
+        }, function() {
+
+        });
     });
 
     function updateCounter(content = undefined) {
@@ -84,8 +119,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
     }
 
     function launchGame() {
-        let gameProcess = setInterval(() => {
-            if (!gamePaused) {
+        gameProcess = setInterval(() => {
+            if (!gamePaused && !gameEnded) {
                 if (pixelForce > 0) {
                     pixelForce -= decreasePixel;
                     timeLeft--;
@@ -94,13 +129,14 @@ document.addEventListener("DOMContentLoaded", function(event) {
                 } else {
                     gameEnded = true;
                     endOfGame();
-                    clearIntervam = clearInterval(gameProcess);
+                    clearInterval(gameProcess);
                 }
             }
         }, 1000);
     }
 
     function endOfGame(phrase = undefined) {
+        clearInterval(gameProcess);
         actions.parentElement.removeChild(actions);
         if (gameWon) {
             let timeUsed = parseInt(beginPixelForce / decreasePixel) - timeLeft;
@@ -108,13 +144,39 @@ document.addEventListener("DOMContentLoaded", function(event) {
                 + timeUsed + " secondes"
                 + " et en " + numberOfTry + "essai(s)"
             );
+            gameSequence += greenSquare;
+            shareResults();
         } else {
             infoText.textContent = "La solution attendue était : " + solution;
+            shareResults();
             if (numberOfTry >= maxNumberTry) {
                 updateCounter("Vous n'avez pas trouvé dans le nombre d'essais autorisé.");
             } else {
                 updateCounter("Temps écoulé !");
             }
+        }
+    }
+
+    function shareResults() {
+        if (!isInfiniteGame) {
+            shareButton.style.display = "inline-block";
+            let timeSpend = totalTime - timeLeft;
+            // todo id
+            gameResults = "#UnblurThatGame " + guessId + "\n" + timeEmoji + " " + timeSpend + "\n";
+            if (gameWon) {
+                gameResults += winEmoji;
+            } else {
+                gameResults += lostEmoji;
+            }
+
+            // fill up game sequence
+            let missingSquare = maxNumberTry - numberOfTry;
+            while (missingSquare > 0) {
+                gameSequence += whiteSquare;
+                missingSquare--;
+            }
+
+            gameResults += gameSequence;
         }
     }
 
