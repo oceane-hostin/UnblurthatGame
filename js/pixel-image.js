@@ -177,6 +177,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
             }
 
             gameResults += gameSequence;
+            gameResults += "\n" + window.location.href;
         }
     }
 

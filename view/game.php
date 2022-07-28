@@ -6,7 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
     <!-- disabled cache -->
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="cache-control" content="no-cache" />
+    <meta http-equiv="pragma" content="no-cache" />
+    <meta name="pragma" content="no-cache;">
 
 
     <!-- Jquery -->
@@ -60,10 +62,9 @@
                 <button id="launchGame" class="inline-block px-6 py-2.5 bg-gray-200 text-gray-700 font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-gray-300 hover:shadow-lg focus:bg-gray-300 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-400 active:shadow-lg transition duration-150 ease-in-out">Lancer le jeu !</button>
                 <button id="pauseGame" class="relative md:-top-0.5 inline-block px-6 py-2.5 bg-gray-400 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-gray-500 hover:shadow-lg focus:bg-gray-900 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-500 active:shadow-lg transition duration-150 ease-in-out" style="display: none">Pause</button>
                 <!-- todo info sur le jeu ? -->
-                <!-- todo share results-->
                 <!-- todo see complete image at end ?-->
                 <!-- todo image not pixel entierly-->
-                <!-- todo pixel smal at begin ex : the red dragon inn 2-->
+                <!-- todo pixel small at begin ex : the red dragon inn 2-->
                 <!-- todo sometimes no images-->
                 <!-- todo issue with accent ex: orléans -->
                 <!-- todo play one time-->
@@ -81,5 +82,13 @@
     <script src="js/pixel-image.js"></script>
     <script src="js/autocomplete.js"></script>
     <script src="js/nav.js"></script>
+    <script type="text/javascript">
+        function reloadAt12(){
+            var d = new Date();
+            var time = d.getHours();
+            if(time==00){location.reload();}
+        }
+        window.setInterval("reloadAt12()", 1000);
+    </script>
 </body>
 </html>
