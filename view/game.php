@@ -10,6 +10,8 @@
     <meta http-equiv="pragma" content="no-cache" />
     <meta name="pragma" content="no-cache;">
 
+    <link rel="icon" type="image/png" href="images/favicon-32x32.png" />
+
 
     <!-- Jquery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
@@ -86,13 +88,5 @@
     <script src="js/pixel-image.js"></script>
     <script src="js/autocomplete.js"></script>
     <script src="js/nav.js"></script>
-    <script type="text/javascript">
-        function reloadAt12(){
-            var d = new Date();
-            var time = d.getHours();
-            if(time==00){location.reload();}
-        }
-        window.setInterval("reloadAt12()", 1000);
-    </script>
 </body>
 </html>
