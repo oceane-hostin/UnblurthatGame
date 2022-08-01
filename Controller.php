@@ -24,6 +24,7 @@ class Controller {
 	// todo be the same for everyone, reset at midnight
 	protected $_todayGame;
 	protected $_currentId;
+	protected $_apiError = false;
 
 	public function __construct()
     {
@@ -68,6 +69,10 @@ class Controller {
 			}
 
 			$httpReturnCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+
+			if ($httpReturnCode != 200) {
+                $this->_apiError = true;
+            }
 
 			$resultArr = json_decode($result, true);
 
@@ -156,7 +161,11 @@ class Controller {
             }
         }
 
-		include "view/game.php";
+	    if (!$this->_apiError) {
+            include "view/game.php";
+        } else {
+            include "view/error.php";
+        }
 	}
 
 	public function getGameName() {
